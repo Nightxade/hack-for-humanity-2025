@@ -13,7 +13,7 @@
 - SQL
     - MySQL (relational)
     - MongoDB (non-relational)
-- Rust
+- Rust ;)
 
 # Useful
 - Python
