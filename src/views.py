@@ -9,9 +9,9 @@ def map_data():
         return jsonify({'error': 'Invalid JSON data'})
     return jsonify({'message': 'Map data received', 'data': data})
 
-@app.route('/event-data/', methods=['POST'])
+@app.route('/event-data/', methods=['GET'])
 def event_data():
     data = request.get_json()
     if not data:
         return {'error': 'Invalid JSON data'}
-    return {'message': 'Event data received', 'data': data}
+    return jsonify({'message': 'Event data received', 'data': data}), 400
