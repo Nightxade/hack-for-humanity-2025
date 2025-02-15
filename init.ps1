@@ -1,4 +1,4 @@
-python -m venv .venv
+python3 -m venv .venv
 npm ci
 Set-ExecutionPolicy Unrestricted -Scope Process
 .\.venv\Scripts\activate
