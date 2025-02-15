@@ -22,60 +22,7 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" 
             integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" 
             crossorigin=""></script>
-    <script>
-        var map = L.map('map').setView([51.505, -0.09], 13); //this inits map at 51.505 long, -0.09 lat with zoom 13 which is London
-        var popup = L.popup()
-            .setLatLng(latlng)
-            .setContent('<p>Hello world!<br />This is a nice popup.</p>')
-    .       openOn(map);
-
-        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 7,
-            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        }).addTo(map);
-        //places markers on the map
-        var markers = [
-            {
-                position: [51.5, -0.09],
-                id: 1,
-                name: "London"
-            },
-            {
-                position: [20.51, -0.1],
-                id: 2,
-                name: "Location 2"
-            }
-        ];       
-        // Loop through the markers array and create markers on the map
-        markers.forEach(markerInfo => {
-            var marker = L.marker(markerInfo.position).addTo(map);
-
-            marker.bindPopup(
-                `<div class="popup-content">
-                    <h3>${markerInfo.name}</h3>
-                    <div id="content-${markerInfo.id}">
-                        <p class="loading">Loading data...</p>
-                    </div>
-                </div>`
-            );
-
-            // when the popup opens, fetch from /event-data/
-            marker.on('popupopen', function() {
-                fetch(`http://127.0.0.1:5000/event-data/`)
-                    .then(response => response.json())
-                    .then(data => {
-                        // renew the content of the popup with the data received
-                        document.getElementById(`content-${markerInfo.id}`).innerHTML = `
-                            <p>Event Data: ${JSON.stringify(data)}</p>
-                        `;
-                    })
-                    .catch(error => {
-                        document.getElementById(`content-${markerInfo.id}`).innerHTML = `
-                            <p style="color: red;">Error loading data: ${error.message}</p>
-                        `;
-                    });
-            });
-        });            
-    </script>
+    
+    <script src="../static/js/map_frontend.js"></script>
 </body>
 </html>
