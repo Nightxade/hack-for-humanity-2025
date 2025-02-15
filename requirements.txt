@@ -3,3 +3,4 @@ django
 fastapi
 numpy
 pandas
+Flask-SQLAlchemy
