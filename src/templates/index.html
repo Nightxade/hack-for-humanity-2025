@@ -23,7 +23,11 @@
             integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" 
             crossorigin=""></script>
     <script>
-        var map = L.map('map').setView([51.505, -0.09], 13); //london temporirliy
+        var map = L.map('map').setView([51.505, -0.09], 13); //this inits map at 51.505 long, -0.09 lat with zoom 13 which is London
+        var popup = L.popup()
+            .setLatLng(latlng)
+            .setContent('<p>Hello world!<br />This is a nice popup.</p>')
+    .       openOn(map);
 
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 7,
