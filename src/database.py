@@ -6,3 +6,7 @@ class Base(DeclarativeBase):
     pass
 
 db = SQLAlchemy(app, model_class=Base)
+db.init_app(app)
+
+with app.app_context():
+    db.create_all()
