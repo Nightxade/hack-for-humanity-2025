@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Nightxade/hack-for-humanity-2025#readme",
   "dependencies": {
+    "express": "^4.21.2",
     "react": "^19.0.0"
   }
 }
