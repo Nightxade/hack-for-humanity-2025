@@ -14,5 +14,5 @@ from src import views
 
 
 #---DATABASE---#
-from src import database
+# from src import database
 

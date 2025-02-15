@@ -6,7 +6,7 @@ class Event(db.Model):
     __tablename__ = "event"
     
     id = mapped_column(Integer, primary_key=True)
-    latitude = mapped_column(Integer)
+    latitude = mapped_column()
     longitude = mapped_column(Integer)
     
     title = mapped_column(String())
