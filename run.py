@@ -1,3 +1,3 @@
 from src import app
 
-app.run()
+app.run(port=5000)

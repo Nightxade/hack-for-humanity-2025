@@ -4,3 +4,4 @@ fastapi
 numpy
 pandas
 Flask-SQLAlchemy
+flask_cors
