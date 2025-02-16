@@ -1,0 +1,9 @@
+.venv
+.git
+build
+docs
+init
+node_modules
+*.pyc
+.gitignore
+*.md
