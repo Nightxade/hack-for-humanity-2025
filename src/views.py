@@ -1,6 +1,6 @@
 from flask import request, jsonify
 from src import app, db
-from models import Event
+from src.models import Event
 
 @app.route('/map-data/', methods=['GET'])
 def map_data():
