@@ -10,6 +10,45 @@ const popup = new MapPopup({
     borderColor: '#cccccc'
 });
 
+const categoryIcons = {
+    'Natural disaster': L.icon({
+        iconUrl: '/static/images/disaster_icon.png',
+        iconSize: [30, 30],
+        iconAnchor: [15, 30],
+        popupAnchor: [0, -30]
+    }),
+    'Human rights': L.icon({
+        iconUrl: '/static/images/equal_icon.png',
+        iconSize: [30, 30],
+        iconAnchor: [15, 30],
+        popupAnchor: [0, -30]
+    }),
+    'Health and disease': L.icon({
+        iconUrl: '/static/images/health_icon.png',
+        iconSize: [30, 30],
+        iconAnchor: [15, 30],
+        popupAnchor: [0, -30]
+    }),
+    'Conflict of war': L.icon({
+        iconUrl: '/static/images/war_icon.png',
+        iconSize: [30, 30],
+        iconAnchor: [15, 30],
+        popupAnchor: [0, -30]
+    }),
+    'Environmental': L.icon({
+        iconUrl: '/static/images/tree_icon.png',
+        iconSize: [30, 30],
+        iconAnchor: [15, 30],
+        popupAnchor: [0, -30]
+    }),
+    // Default icon for any unmatched categories
+    'default': L.icon({
+        iconUrl: '/static/images/default_icon.png',
+        iconSize: [30, 30],
+        iconAnchor: [15, 30],
+        popupAnchor: [0, -30]
+    })
+};
 
 document.addEventListener("DOMContentLoaded", async function () {
     const default_location = [37.3541, -121.9552]
@@ -44,7 +83,9 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     // Loop through markers array and add them to the map
     markers.forEach(markerInfo => {
-        var marker = L.marker(markerInfo.position).addTo(map);
+        //connect marker to category
+        const icon = categoryIcons[markerInfo.category] || categoryIcons.default;
+        var marker = L.marker(markerInfo.position, { icon: icon }).addTo(map);
 
         marker.bindPopup(
             `<div class="popup-content">
