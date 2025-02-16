@@ -6,9 +6,10 @@ const headers = {
 };
 
 document.addEventListener("DOMContentLoaded", async function () {
+    const default_location = [37.3541, -121.9552]
 
     // Initialize Leaflet map
-    var map = L.map('map').setView([51.505, -0.09], 13); // London
+    var map = L.map('map').setView(default_location, 13); // Santa Clara
 
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 7,
