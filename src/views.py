@@ -4,9 +4,9 @@ from src.models import Event
 
 @app.route('/map-data/', methods=['GET'])
 def map_data():
-    events = db.session.execute(db.select(Event.id, Event.latitude, Event.longitude, Event.city)).all()
+    events = db.session.execute(db.select(Event.id, Event.latitude, Event.longitude, Event.city, Event.category)).all()
     event_list = [
-        {"id": event.id, "position": [event.latitude, event.longitude], "city": event.city}
+        {"id": event.id, "position": [event.latitude, event.longitude], "city": event.city, "category": event.category}
         for event in events
     ]
 
