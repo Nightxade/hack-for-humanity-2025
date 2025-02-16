@@ -53,6 +53,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 const response = await fetch(`http://${hostname}:${flask_port}/event-data/`, {
                     method: 'POST',
                     headers: headers,
+                    body: JSON.stringify({ id: markerInfo.id })
                 });
                 const data = await response.json();
         
