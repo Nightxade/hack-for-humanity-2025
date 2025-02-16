@@ -11,7 +11,6 @@ today = datetime.now(timezone.utc).date()
 
 openai_key = open('private/openai-api', 'r').read().strip()
 
-#60k tokens, don't run it for fun TwT
 def get_daily_update():
     links = scrape_websites()
     links = {k: {"content": v} for k,v in links.items()}
