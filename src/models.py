@@ -7,6 +7,7 @@ class Event(db.Model):
     id = mapped_column(db.Integer, primary_key=True)
     latitude = mapped_column(db.Float)
     longitude = mapped_column(db.Float)
+    pull_date = mapped_column(db.Date())
 
     city = mapped_column(db.String)
     country = mapped_column(db.String(50))

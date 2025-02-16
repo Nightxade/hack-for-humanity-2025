@@ -1,10 +1,12 @@
 from flask import request, jsonify
 from src import app, db
 from src.models import Event
+from datetime import datetime, timezone
 
 @app.route('/map-data/', methods=['GET'])
 def map_data():
-    events = db.session.execute(db.select(Event.id, Event.latitude, Event.longitude, Event.city, Event.category)).all()
+    events = db.session.execute(db.select(Event.id, Event.latitude, Event.longitude, Event.city, Event.category)
+                                .where(Event.pull_date == datetime.now(timezone.utc).date())).all()
     event_list = [
         {"id": event.id, "position": [event.latitude, event.longitude], "city": event.city, "category": event.category}
         for event in events

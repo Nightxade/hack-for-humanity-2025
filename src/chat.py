@@ -8,7 +8,7 @@ def article_summary(apikey, url):
         model="gpt-4o-mini",
         store=True,
         messages=[
-            {"role": "user", "content": f"Format all following data in JSON.\n\nKey: date, Value: the date of publication in mm-dd-yy\nKey: city, Value: the city of event\nKey:country, Value: country of city\nKey:latitude, Value: latitude of city (5 decimals)\nKey:longitude, Value:longitude of city (5 decimals)\nKey: article title, Value: article title in quotes\nKey: summary, Value: 3-4 sentence summary focus on context and impact \n{url}"}
+            {"role": "user", "content": f"Format all following data in JSON.\n\nKey: date, Value: the date of publication in YYYY-MM-DD\nKey: city, Value: the city of event\nKey: country, Value: country of city\nKey: latitude, Value: latitude of city (5 decimals)\nKey: longitude, Value:longitude of city (5 decimals)\nKey: title, Value: article title in quotes\nKey: content, Value: 3-4 sentence summary focus on context and impact \n{url}"}
         ]
     )
     

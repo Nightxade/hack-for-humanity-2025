@@ -24,5 +24,6 @@ db.init_app(app)
 with app.app_context():
     db.create_all()
 
-#---VIEWS---#
-from src import views
+
+from database import update_database
+update_database()
