@@ -4,17 +4,18 @@
     border: 1px solid #cccccc;
     border-radius: 4px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-    padding: 15px;
+    padding: 20px;
     z-index: 10000;
     display: none;
-    max-width: 300px;
-    max-height: 400px;
+    width: 500px;
+    height: 400px; 
+    max-height: 600px;
     overflow-y: auto;
 }
 
 .map-popup-close {
     position: absolute;
-    top: 5px;
+    top: 8px;
     right: 10px;
     cursor: pointer;
     width: 20px;
@@ -23,7 +24,7 @@
     align-items: center;
     justify-content: center;
 }
-/*drawing the x*/
+
 .map-popup-close::before,
 .map-popup-close::after {
     content: '';
@@ -47,30 +48,66 @@
 }
 
 .map-popup-content {
-    margin-top: 10px;
+    margin-top: 5px;
+    width: 100%;
 }
 
+/* 事件数据样式 */
 .event-data {
-    font-size: 14px;
+    width: 100%; 
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
-.event-item {
-    padding: 8px 0;
+.event-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin: 0 0 15px 0;
+}
+
+.event-subtitle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: #666;
+}
+
+.event-location {
+    max-width: 60%;
+}
+
+.event-date {
+    color: #666;
+}
+
+.event-content {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #333;
+    margin-bottom: 15px;
+    padding: 10px 0;
+    border-top: 1px solid #eee;
     border-bottom: 1px solid #eee;
 }
 
-.event-item:last-child {
-    border-bottom: none;
+.event-link {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    text-align: right;
 }
 
-.event-item strong {
-    color: #333;
-    margin-right: 8px;
+.event-link a {
+    color: #1a73e8;
+    text-decoration: none;
+    font-size: 13px;
 }
 
-.event-item span {
-    color: #666;
-    word-break: break-all;
+.event-link a:hover {
+    text-decoration: underline;
 }
 
 .error-message {
@@ -80,7 +117,7 @@
     border-radius: 4px;
 }
 
-/* cartoon */
+/* 添加动画效果 */
 .map-popup {
     animation: fadeIn 0.2s ease-in-out;
 }
