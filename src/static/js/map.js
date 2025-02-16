@@ -1,11 +1,11 @@
 const hostname = '127.0.0.1';
 const flask_port = 5000;
-/*const headers = {
+const headers = {
     'Content-Type': 'application/json',
     'Accept': 'application/json'
-};*/
+};
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
     // Initialize Leaflet map
     var map = L.map('map').setView([51.505, -0.09], 13); // London
 
@@ -14,19 +14,30 @@ document.addEventListener("DOMContentLoaded", function () {
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
 
-    // Places markers on the map
-    var markers = [
-        {
-            position: [51.5, -0.09],
-            id: 1,
-            name: "London"
-        },
-        {
-            position: [20.51, -0.1],
-            id: 2,
-            name: "Location 2"
-        }
-    ];
+    var markers = [];
+    try {
+        const response = await fetch(`http://${hostname}:${flask_port}/map-data/`,{
+            method: 'GET',
+            headers: headers,
+        });
+        const data = await response.json();
+
+        // Places markers on the map
+        markers = [
+            {
+                position: [51.5, -0.09],
+                id: 1,
+                name: "London"
+            },
+            {
+                position: [20.51, -0.1],
+                id: 2,
+                name: "Location 2"
+            }
+        ];
+    } catch (error) {
+        console.log('wtf');
+    }
 
     // Loop through markers array and add them to the map
     markers.forEach(markerInfo => {
@@ -44,10 +55,10 @@ document.addEventListener("DOMContentLoaded", function () {
         // Fetch event data when popup opens
         marker.on('popupopen', async function() {
             try {
-                const response = await fetch(`http://${hostname}:${flask_port}/event-data/`,/*{
-                    method: 'get',
+                const response = await fetch(`http://${hostname}:${flask_port}/event-data/`,{
+                    method: 'POST',
                     headers: headers,
-                }*/);
+                });
                 const data = await response.json();
 
                 // Update the popup content with received data
