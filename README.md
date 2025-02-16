@@ -1,4 +1,5 @@
 # Repo for Hack for Humanity 2025 project
+Daily, breaking news on humanitarian issues across Earth.
 
 ## Team
 Matthew Cai, Ava Rouzmehr, Lawrence Wang, Yuexiang Wu, Kaelan Yim
@@ -20,7 +21,7 @@ sudo make
 sudo make clean
 ```
 
-## Features
+## Technical Features
 - Persistent sqlite3 database that lasts across builds and only updates on demand  
 - Fast, lightweight build tools structured for easy, extensible development  
 - LLM-powered event categorization and article summaries  
