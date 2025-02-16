@@ -20,4 +20,4 @@ def scrape_websites():
                 else:
                     temp += 1
 
-    return list(all_links.keys())
+    return all_links
