@@ -1,5 +1,9 @@
 .showcase {
     padding: 20px;
+    padding-left: 20px;
     font-family: "Lucida Console", "Courier New", monospace;
+}
+
+.showcase a {
     text-decoration: none;
 }
