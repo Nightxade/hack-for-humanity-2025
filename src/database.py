@@ -5,7 +5,6 @@ from sqlalchemy import func
 import json
 from src.models import Event
 from src import db, app
-from tqdm import tqdm
 
 # links = {} #dict - {key: link, value: category}
 today = datetime.now(timezone.utc).date()
@@ -17,7 +16,7 @@ def get_daily_update():
     links = scrape_websites()
     links = {k: {"content": v} for k,v in links.items()}
 
-    for i in tqdm(links.keys()):
+    for i in links.keys():
         links[i].update(json.loads(article_summary(openai_key, links[i]['content'])))
 
     return links

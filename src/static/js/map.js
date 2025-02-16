@@ -67,6 +67,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     markersLayer = L.layerGroup().addTo(map);
 
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        minZoom: 2,
         maxZoom: 7,
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
