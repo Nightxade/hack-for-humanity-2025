@@ -1,9 +1,8 @@
-// sidebar.js
 document.addEventListener('DOMContentLoaded', function() {
-  const sidebar = document.querySelector('.category-list');
-  const toggle = document.querySelector('.toggle');
+  const sidebar = document.querySelector('.sidebar');
+  const categoryList = document.querySelector('.category-list');
   
-  // 定义分类数据
+  // Define categories
   const categories = [
       { id: 'all', name: 'All Events', icon: '/static/images/menu.png' },
       { id: 'Natural disaster', name: 'Natural Disaster', icon: '/static/images/disaster_icon.png' },
@@ -13,34 +12,50 @@ document.addEventListener('DOMContentLoaded', function() {
       { id: 'Environmental', name: 'Environmental', icon: '/static/images/tree_icon.png' }
   ];
 
-  // 创建分类列表
+  // Create toggle button
+  const toggleButton = document.createElement('div');
+  toggleButton.className = 'toggle-button';
+  toggleButton.innerHTML = `
+      <img src="/static/images/menu.png" alt="Menu">
+      <span>All Events</span>
+  `;
+  document.body.appendChild(toggleButton);
+
+  // Create category list
   const categoryHTML = categories.map(category => `
       <div class="category-item" data-category="${category.id}">
-          <img src="${category.icon}" class="category-icon">
+          <img src="${category.icon}" class="category-icon" alt="${category.name}">
           <span class="category-name">${category.name}</span>
       </div>
   `).join('');
 
-  sidebar.innerHTML = categoryHTML;
+  categoryList.innerHTML = categoryHTML;
 
-  // 侧边栏切换
-  toggle.addEventListener('click', () => {
-      document.querySelector('.sidebar').classList.toggle('active');
+  // Toggle sidebar
+  toggleButton.addEventListener('click', () => {
+      sidebar.classList.toggle('active');
   });
 
-  // 分类点击事件
+  // Category click event
   document.querySelectorAll('.category-item').forEach(item => {
       item.addEventListener('click', () => {
-          // 更新选中状态
+          // Update active state
           document.querySelectorAll('.category-item').forEach(i => {
               i.classList.remove('active');
           });
           item.classList.add('active');
 
-          // 触发筛选事件
+          // Trigger filter event
           window.dispatchEvent(new CustomEvent('filterMarkers', {
               detail: { category: item.dataset.category }
           }));
       });
+  });
+
+  // Close sidebar when clicking outside
+  document.addEventListener('click', (e) => {
+      if (!sidebar.contains(e.target) && !toggleButton.contains(e.target)) {
+          sidebar.classList.remove('active');
+      }
   });
 });

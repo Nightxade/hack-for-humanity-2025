@@ -1,8 +1,8 @@
 .sidebar {
     position: fixed;
     top: 0;
-    right: -300px;
-    width: 300px;
+    right: -250px;
+    width: 250px;
     height: 100vh;
     background-color: #ffffff;
     box-shadow: -2px 0 8px rgba(0, 0, 0, 0.15);
@@ -14,8 +14,35 @@
     right: 0;
 }
 
+.toggle-button {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1001;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.toggle-button img {
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+}
+
+.toggle-button span {
+    font-size: 14px;
+    color: #333;
+}
+
 .category-list {
     padding: 20px;
+    margin-top: 60px;
 }
 
 .category-item {
