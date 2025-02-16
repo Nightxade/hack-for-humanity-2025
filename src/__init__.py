@@ -5,14 +5,19 @@ app = Flask(__name__)
 CORS(app)
 
 #---CONFIG---#
-# app.config.from_object('config.ConfigProduction') # production
-# app.config.from_object('config.ConfigTest') # test
-app.config.from_object('src.config.ConfigDev') # dev
+import src.config as cfg
+# app.config.from_object(cfg.ConfigProduction) # production
+# app.config.from_object(cfg.ConfigTest) # test
+app.config.from_object(cfg.ConfigDev) # dev
+
+#---DATABASE---#
+from src.database import Base
+from flask_sqlalchemy import SQLAlchemy
+db = SQLAlchemy(model_class=Base)
+db.init_app(app)
+
+with app.app_context():
+    db.create_all()
 
 #---VIEWS---#
 from src import views
-
-
-#---DATABASE---#
-# from src import database
-
