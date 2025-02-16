@@ -23,18 +23,19 @@ def get_daily_update():
 
 def update_database():
     with app.app_context():
-        # get unique index for id
-        index = db.session.execute(db.select(func.max(Event.id))).scalar()
-        if index is None:
-            index = 1
-        
+        # check if database needs update
+        date = db.session.execute(db.select(func.max(Event.pull_date))).scalar()
+        if date == today:
+            return
+
+    get_daily_update()
+    # links = {"google.com": {"latitude": 0, "longitude": 0, "city": "Santa Clara", "country": "US", "title": "A", "content": "B", "date": "2025-01-01", "category": "Natural disaster"}}
+
+    with app.app_context():
         for i in links.keys():
             links[i]['date'] = datetime.strptime(links[i]['date'], "%Y-%m-%d").date()
             links[i]['pull_date'] = today
             links[i]['link'] = i
-            links[i]['id'] = index
-
-            index += 1
 
             event = Event(**links[i])
             db.session.add(event)
