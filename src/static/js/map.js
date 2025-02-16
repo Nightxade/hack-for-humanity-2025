@@ -139,12 +139,12 @@ function createMarkers(markers) {
     });
 }
 
-// Filter markers based on category
+// Filter markers based on selected categories
 window.addEventListener('filterMarkers', function(e) {
-    const selectedCategory = e.detail.category;
+    const selectedCategories = e.detail.categories;
     
     markersLayer.eachLayer(marker => {
-        if (selectedCategory === 'all' || marker.options.category === selectedCategory) {
+        if (selectedCategories.includes('all') || selectedCategories.includes(marker.options.category)) {
             marker.addTo(map);
         } else {
             map.removeLayer(marker);
