@@ -5,3 +5,5 @@ numpy
 pandas
 Flask-SQLAlchemy
 flask_cors
+requests
+BeautifulSoup4
