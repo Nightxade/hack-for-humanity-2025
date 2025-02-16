@@ -12,38 +12,38 @@ const popup = new MapPopup({
 
 const categoryIcons = {
     'Natural disaster': L.icon({
-        iconUrl: '/static/images/disaster_icon.png',
+        iconUrl: '.../images/disaster_icon.png',
         iconSize: [30, 30],
         iconAnchor: [15, 30],
         popupAnchor: [0, -30]
     }),
     'Human rights': L.icon({
-        iconUrl: '/static/images/equal_icon.png',
+        iconUrl: '.../images/equal_icon.png',
         iconSize: [30, 30],
         iconAnchor: [15, 30],
         popupAnchor: [0, -30]
     }),
     'Health and disease': L.icon({
-        iconUrl: '/static/images/health_icon.png',
+        iconUrl: '.../images/health_icon.png',
         iconSize: [30, 30],
         iconAnchor: [15, 30],
         popupAnchor: [0, -30]
     }),
     'Conflict of war': L.icon({
-        iconUrl: '/static/images/war_icon.png',
+        iconUrl: '...static/images/war_icon.png',
         iconSize: [30, 30],
         iconAnchor: [15, 30],
         popupAnchor: [0, -30]
     }),
     'Environmental': L.icon({
-        iconUrl: '/static/images/tree_icon.png',
+        iconUrl: '...static/images/tree_icon.png',
         iconSize: [30, 30],
         iconAnchor: [15, 30],
         popupAnchor: [0, -30]
     }),
     // Default icon for any unmatched categories
     'default': L.icon({
-        iconUrl: '/static/images/default_icon.png',
+        iconUrl: '...static/images/default_icon.png',
         iconSize: [30, 30],
         iconAnchor: [15, 30],
         popupAnchor: [0, -30]
