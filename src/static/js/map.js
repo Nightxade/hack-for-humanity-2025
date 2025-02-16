@@ -45,7 +45,6 @@ const categoryIcons = {
         iconAnchor: iconAnchor,
         popupAnchor: popupAnchor
     }),
-    // Default icon for any unmatched categories
     'default': L.icon({
         iconUrl: '/static/images/default_icon.png',
         iconSize: iconSize,
@@ -54,11 +53,15 @@ const categoryIcons = {
     })
 };
 
+let map;
+let markersLayer;
+
 document.addEventListener("DOMContentLoaded", async function () {
-    const default_location = [37.3541, -121.9552]
+    const default_location = [37.3541, -121.9552];
 
     // Initialize Leaflet map
-    var map = L.map('map').setView(default_location, 13); // Santa Clara
+    map = L.map('map').setView(default_location, 13);
+    markersLayer = L.layerGroup().addTo(map);
 
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 7,
@@ -67,29 +70,35 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     var markers = [];
     try {
-        const response = await fetch(`http://${hostname}:${flask_port}/map-data/`,{
+        const response = await fetch(`http://${hostname}:${flask_port}/map-data/`, {
             method: 'GET',
             headers: headers,
         });
         const data = await response.json();
-        markers = data;
-
-        // Places markers on the map
         markers = data.map(event => ({
             id: event.id,
             position: { lat: event.position[0], lng: event.position[1] },
+            name: event.name,
             city: event.city,
             category: event.category,
         }));
+        
+        createMarkers(markers);
     } catch (error) {
-        console.log('Error fetching map data');
+        console.log('Error fetching map data:', error);
     }
+});
 
-    // Loop through markers array and add them to the map
+function createMarkers(markers) {
+    // Clear existing markers
+    markersLayer.clearLayers();
+
     markers.forEach(markerInfo => {
-        //connect marker to category
         const icon = categoryIcons[markerInfo.category] || categoryIcons.default;
-        var marker = L.marker(markerInfo.position, { icon: icon }).addTo(map);
+        const marker = L.marker([markerInfo.position.lat, markerInfo.position.lng], { 
+            icon: icon,
+            category: markerInfo.category 
+        });
 
         marker.bindPopup(
             `<div class="popup-content">
@@ -106,7 +115,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 const response = await fetch(`http://${hostname}:${flask_port}/event-data/`, {
                     method: 'POST',
                     headers: headers,
-                    body: JSON.stringify({ id: markerInfo.id }) 
+                    body: JSON.stringify({ id: markerInfo.id })
                 });
                 const data = await response.json();
                 
@@ -125,22 +134,20 @@ document.addEventListener("DOMContentLoaded", async function () {
                 popup.showError(error);
             }
         });
-    });
-});
 
+        markersLayer.addLayer(marker);
+    });
+}
+
+// Filter markers based on selected categories
 window.addEventListener('filterMarkers', function(e) {
-    const selectedCategory = e.detail.category;
+    const selectedCategories = e.detail.categories;
     
-    markers.forEach(markerInfo => {
-        const marker = markerInfo.marker;
-        if (selectedCategory === 'all' || markerInfo.category === selectedCategory) {
-            if (!map.hasLayer(marker)) {
-                marker.addTo(map);
-            }
+    markersLayer.eachLayer(marker => {
+        if (selectedCategories.includes('all') || selectedCategories.includes(marker.options.category)) {
+            marker.addTo(map);
         } else {
-            if (map.hasLayer(marker)) {
-                map.removeLayer(marker);
-            }
+            map.removeLayer(marker);
         }
     });
 });
