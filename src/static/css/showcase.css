@@ -1,10 +1,13 @@
-.showcase {
-    padding: 20px;
-    padding-left: 20px;
-    font-family: "Lucida Console", "Courier New", monospace;
+.showcase a {
+    color: #7575c5;
+    font-family:'Courier New', Courier, monospace;
+    font-size: medium;
+    text-decoration: none;
+    padding: 10px 10px;
+    margin-right: 10px;
+    border-radius: 3px;
 }
 
-.showcase a {
-    color:darkblue;
-    text-decoration: none;
+.showcase a:hover {
+    background-color: rgb(220, 232, 236); /* Hover effect */
 }
