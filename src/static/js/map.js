@@ -10,34 +10,46 @@ const popup = new MapPopup({
     borderColor: '#cccccc'
 });
 
-
-const iconSizes = [[60, 60], [45, 45], [35, 35], [25, 25], [20, 20], [15, 15]];
-const initialZoom = 5;
+const iconSize = [45, 45]
+const iconAnchor = [15, 30]
+const popupAnchor = [0, -30]
 
 const categoryIcons = {
     'Natural disaster': L.icon({
         iconUrl: '/static/images/disaster_icon.png',
-        iconSize: iconSizes[zoomToSize(initialZoom)],
+        iconSize: iconSize,
+        iconAnchor: iconAnchor,
+        popupAnchor: popupAnchor
     }),
     'Human rights': L.icon({
         iconUrl: '/static/images/equal_icon.png',
-        iconSize: iconSizes[zoomToSize(initialZoom)],
+        iconSize: iconSize,
+        iconAnchor: iconAnchor,
+        popupAnchor: popupAnchor
     }),
     'Health and disease': L.icon({
         iconUrl: '/static/images/health_icon.png',
-        iconSize: iconSizes[zoomToSize(initialZoom)],
+        iconSize: iconSize,
+        iconAnchor: iconAnchor,
+        popupAnchor: popupAnchor
     }),
     'Conflict of war': L.icon({
         iconUrl: '/static/images/war_icon.png',
-        iconSize: iconSizes[zoomToSize(initialZoom)],
+        iconSize: iconSize,
+        iconAnchor: iconAnchor,
+        popupAnchor: popupAnchor
     }),
     'Environmental': L.icon({
         iconUrl: '/static/images/tree_icon.png',
-        iconSize: iconSizes[zoomToSize(initialZoom)],
+        iconSize: iconSize,
+        iconAnchor: iconAnchor,
+        popupAnchor: popupAnchor
     }),
     'default': L.icon({
         iconUrl: '/static/images/default_icon.png',
-        iconSize: iconSizes[zoomToSize(initialZoom)],
+        iconSize: iconSize,
+        iconAnchor: iconAnchor,
+        popupAnchor: popupAnchor
     })
 };
 
@@ -47,12 +59,14 @@ let markersLayer;
 document.addEventListener("DOMContentLoaded", async function () {
     const default_location = [37.3541, -121.9552];
 
-    // Initialize Leaflet map
-    map = L.map('map').setView(default_location, initialZoom);
+    // Initialize Leaflet map without default zoom controls
+    map = L.map('map', {
+        zoomControl: false  // Disable default zoom controls
+    }).setView(default_location, 13);
+
     markersLayer = L.layerGroup().addTo(map);
 
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        minZoom: 2,
         maxZoom: 7,
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
@@ -72,16 +86,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             category: event.category,
         }));
         
-        markers = createMarkers(markers);
-
-        // dynamic resizing of icons on zoom
-        map.on('zoomend', function(e) {
-            markers.forEach(marker => {
-                let icon = marker.options.icon;
-                icon.options.iconSize = iconSizes[zoomToSize(map.getZoom())];
-                marker.setIcon(icon);
-            });
-        });
+        createMarkers(markers);
     } catch (error) {
         console.log('Error fetching map data:', error);
     }
@@ -91,7 +96,6 @@ function createMarkers(markers) {
     // Clear existing markers
     markersLayer.clearLayers();
 
-    let markerList = [];
     markers.forEach(markerInfo => {
         const icon = categoryIcons[markerInfo.category] || categoryIcons.default;
         const marker = L.marker([markerInfo.position.lat, markerInfo.position.lng], { 
@@ -135,9 +139,7 @@ function createMarkers(markers) {
         });
 
         markersLayer.addLayer(marker);
-        markerList.push(marker);
     });
-    return markerList;
 }
 
 // Filter markers based on selected categories
@@ -152,7 +154,3 @@ window.addEventListener('filterMarkers', function(e) {
         }
     });
 });
-
-function zoomToSize(zoom) {
-    return -zoom + iconSizes.length;
-}

@@ -1,6 +1,5 @@
 from flask import Flask
 from flask_cors import CORS
-from openai import OpenAI
 
 app = Flask(__name__)
 CORS(app)
@@ -24,6 +23,13 @@ db.init_app(app)
 with app.app_context():
     db.create_all()
 
+#---UPDATE DB---#
+from apscheduler.schedulers.background import BackgroundScheduler
+from src.database import update_database
 
-from database import update_database
-update_database()
+scheduler = BackgroundScheduler()
+job = scheduler.add_job(update_database, 'interval', seconds=5)
+scheduler.start()
+
+#---VIEWS---#
+from src import views # DO NOT REMOVE THIS MAKES THE FLASK ENDPOINTS ACCESSIBLE
