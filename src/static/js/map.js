@@ -23,18 +23,11 @@ document.addEventListener("DOMContentLoaded", async function () {
         const data = await response.json();
 
         // Places markers on the map
-        markers = [
-            {
-                position: [51.5, -0.09],
-                id: 1,
-                name: "London"
-            },
-            {
-                position: [20.51, -0.1],
-                id: 2,
-                name: "Location 2"
-            }
-        ];
+        markers = data.map(event => ({
+            id: event.id,
+            position: { lat: event.position[0], lng: event.position[1] },
+            city: event.city
+        }));
     } catch (error) {
         console.log('wtf');
     }
