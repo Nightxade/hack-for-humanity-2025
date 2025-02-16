@@ -14,6 +14,11 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'templates/index.html'));
 });
 
+// Serve about.html when visiting `/about`
+app.get('/about', (req, res) => {
+    res.sendFile(path.join(__dirname, 'templates/about.html'));
+});
+
 app.listen(port, hostname, () => {
     console.log(`Server running at http://${hostname}:${port}/`);
 });
