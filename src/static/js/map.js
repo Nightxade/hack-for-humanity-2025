@@ -48,20 +48,24 @@ document.addEventListener("DOMContentLoaded", async function () {
         // Fetch event data when popup opens
         marker.on('popupopen', async function() {
             try {
-                const response = await fetch(`http://${hostname}:${flask_port}/event-data/`,{
+                const response = await fetch(`http://${hostname}:${flask_port}/event-data/`, {
                     method: 'POST',
                     headers: headers,
                 });
                 const data = await response.json();
-
-                // Update the popup content with received data
-                document.getElementById(`content-${markerInfo.id}`).innerHTML = `
-                    <p>Event Data: ${JSON.stringify(data)}</p>
-                `;
+        
+                // 使用自定义弹窗显示数据
+                window.showEventPopup(data);
+                
+                // 关闭 Leaflet 的原生 popup
+                marker.closePopup();
             } catch (error) {
-                document.getElementById(`content-${markerInfo.id}`).innerHTML = `
-                    <p style="color: red;">Error loading data: ${error.message}</p>
-                `;
+                // 错误处理也使用自定义弹窗
+                window.showEventPopup({
+                    error: true,
+                    message: `Error loading data: ${error.message}`
+                });
+                marker.closePopup();
             }
         });
     });
