@@ -1,0 +1,78 @@
+.map-popup {
+    position: fixed;
+    background: #ffffff;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    padding: 15px;
+    z-index: 10000; /* 确保在 Leaflet 地图上层 */
+    display: none;
+    max-width: 300px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.map-popup-close {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 20px;
+    color: #666;
+    line-height: 1;
+    z-index: 1;
+}
+
+.map-popup-close:hover {
+    color: #333;
+}
+
+.map-popup-content {
+    margin-top: 10px;
+}
+
+.event-data {
+    font-size: 14px;
+}
+
+.event-item {
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.event-item:last-child {
+    border-bottom: none;
+}
+
+.event-item strong {
+    color: #333;
+    margin-right: 8px;
+}
+
+.event-item span {
+    color: #666;
+    word-break: break-all;
+}
+
+.error-message {
+    padding: 10px;
+    background-color: #fff2f0;
+    border: 1px solid #ffccc7;
+    border-radius: 4px;
+}
+
+/* 添加动画效果 */
+.map-popup {
+    animation: fadeIn 0.2s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
