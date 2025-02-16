@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 
+PAGE_LIMIT = 1
 
 def scrape_websites():
     topics = ["humanitarian", "human%20rights", "health", "disease", "conflict", "war", "environmental"]
@@ -12,10 +13,10 @@ def scrape_websites():
             url = f'https://news.google.com/search?q={i}%20{t}%20news&hl=en-US&gl=US&ceid=US%3Aen'
             r = requests.get(url)
             soup = BeautifulSoup(r.content, 'html.parser')
-            temp = 0
+            temp = 1
             for item in soup.find_all('a', class_="WwrzSb"):
                 all_links['news.google.com' + item['href'][1:]] = i
-                if temp == 2:
+                if temp == PAGE_LIMIT:
                     break
                 else:
                     temp += 1

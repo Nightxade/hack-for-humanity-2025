@@ -10,3 +10,6 @@ docker:
 
 restart:
 	docker compose restart
+
+db-events:
+	sqlite3 data/events.db < data/events.sql
