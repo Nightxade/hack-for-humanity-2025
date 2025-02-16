@@ -1,6 +1,5 @@
-from sqlalchemy import Column, Integer, String, types
 from sqlalchemy.orm import mapped_column
-from database import db
+from src import db
 
 class Event(db.Model):
     __tablename__ = "event"
@@ -16,7 +15,7 @@ class Event(db.Model):
     title = mapped_column(db.String)
     content = mapped_column(db.String)
     category = mapped_column(db.String(30))
-    date = mapped_column(types.Date())
+    date = mapped_column(db.Date())
     link = mapped_column(db.String)
 
     
