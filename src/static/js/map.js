@@ -63,8 +63,6 @@ document.addEventListener("DOMContentLoaded", async function () {
                     body: JSON.stringify({ id: markerInfo.id })
                 });
                 const data = await response.json();
-
-                console.log(data)
                 
                 // 使用新的弹窗组件显示数据
                 popup.show(data, {
