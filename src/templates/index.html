@@ -7,7 +7,7 @@
         crossorigin="" />
     <link rel="stylesheet" href="../static/css/style.css">
     <link rel="stylesheet" href="../static/css/popup.css">
-    <link rel ="stylesheet" href="../static/css/sidebar.css">
+    <link rel="stylesheet" href="../static/css/sidebar.css">
     <link rel="stylesheet" href="../static/css/showcase.css">
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" 
@@ -19,14 +19,20 @@
 </head>
 <body>
     <section class="showcase">
-        <!-- Navigation Bar -->
-        <header>
-            <div>
-                <a href="templates/index.html">Home</a>
-                <a href="templates/about.html">About</a>
+        <!-- Navigation Container -->
+        <div class="navigation-container">
+            <!-- Navigation Section -->
+            <div class="nav-section">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
             </div>
-            <div class="toggle"
-        </header>
+            
+            <!-- Zoom Controls Section -->
+            <div class="nav-section zoom-controls">
+                <div class="zoom-button" id="zoom-in">+</div>
+                <div class="zoom-button" id="zoom-out">-</div>
+            </div>
+        </div>
 
         <!-- Map -->
         <div id="map"></div>
@@ -36,5 +42,15 @@
         <div class="category-list"></div>
     </div>
 
+    <script>
+        // Add zoom functionality
+        document.getElementById('zoom-in').addEventListener('click', () => {
+            map.zoomIn();
+        });
+
+        document.getElementById('zoom-out').addEventListener('click', () => {
+            map.zoomOut();
+        });
+    </script>
 </body>
 </html>
