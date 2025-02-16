@@ -11,46 +11,32 @@ const popup = new MapPopup({
 });
 
 const iconSizes = [[60, 60], [45, 45], [35, 35], [25, 25], [20, 20], [15, 15]];
-const iconAnchor = [0, 0]
-const popupAnchor = [0, -30]
 const initialZoom = 5;
 
 const categoryIcons = {
     'Natural disaster': L.icon({
         iconUrl: '/static/images/disaster_icon.png',
         iconSize: iconSizes[zoomToSize(initialZoom)],
-        iconAnchor: iconAnchor,
-        popupAnchor: popupAnchor
     }),
     'Human rights': L.icon({
         iconUrl: '/static/images/equal_icon.png',
         iconSize: iconSizes[zoomToSize(initialZoom)],
-        iconAnchor: iconAnchor,
-        popupAnchor: popupAnchor
     }),
     'Health and disease': L.icon({
         iconUrl: '/static/images/health_icon.png',
         iconSize: iconSizes[zoomToSize(initialZoom)],
-        iconAnchor: iconAnchor,
-        popupAnchor: popupAnchor
     }),
     'Conflict of war': L.icon({
         iconUrl: '/static/images/war_icon.png',
         iconSize: iconSizes[zoomToSize(initialZoom)],
-        iconAnchor: iconAnchor,
-        popupAnchor: popupAnchor
     }),
     'Environmental': L.icon({
         iconUrl: '/static/images/tree_icon.png',
         iconSize: iconSizes[zoomToSize(initialZoom)],
-        iconAnchor: iconAnchor,
-        popupAnchor: popupAnchor
     }),
     'default': L.icon({
         iconUrl: '/static/images/default_icon.png',
         iconSize: iconSizes[zoomToSize(initialZoom)],
-        iconAnchor: iconAnchor,
-        popupAnchor: popupAnchor
     })
 };
 
