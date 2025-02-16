@@ -6,6 +6,7 @@ const headers = {
 };
 
 document.addEventListener("DOMContentLoaded", async function () {
+
     // Initialize Leaflet map
     var map = L.map('map').setView([51.505, -0.09], 13); // London
 
@@ -15,22 +16,23 @@ document.addEventListener("DOMContentLoaded", async function () {
     }).addTo(map);
 
     var markers = [];
-    // try {
-    //     const response = await fetch(`http://${hostname}:${flask_port}/map-data/`,{
-    //         method: 'GET',
-    //         headers: headers,
-    //     });
-    //     const data = await response.json();
+    try {
+        const response = await fetch(`http://${hostname}:${flask_port}/map-data/`,{
+            method: 'GET',
+            headers: headers,
+        });
+        const data = await response.json();
+        markers = data;
 
-    //     // Places markers on the map
-    //     markers = data.map(event => ({
-    //         id: event.id,
-    //         position: { lat: event.position[0], lng: event.position[1] },
-    //         city: event.city
-    //     }));
-    // } catch (error) {
-    //     console.log('wtf');
-    // }
+        // Places markers on the map
+        markers = data.map(event => ({
+            id: event.id,
+            position: { lat: event.position[0], lng: event.position[1] },
+            city: event.city
+        }));
+    } catch (error) {
+        console.log('Error fetching map data');
+    }
 
     // Loop through markers array and add them to the map
     markers.forEach(markerInfo => {
@@ -53,6 +55,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                     headers: headers,
                 });
                 const data = await response.json();
+                console.log(data);
 
                 // Update the popup content with received data
                 document.getElementById(`content-${markerInfo.id}`).innerHTML = `
