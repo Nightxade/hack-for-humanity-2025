@@ -1,10 +1,18 @@
-.showcase {
-    padding: 20px;
-    padding-left: 20px;
-    font-family: "Lucida Console", "Courier New", monospace;
+.showcase a {
+    color: darkblue;
+    text-decoration: none;
+    padding: 10px 15px;
+    border: 2px solid darkblue; /* Box border */
+    margin-right: 10px;
+    border-radius: 5px;
+    display: inline-block;
 }
 
-.showcase a {
-    color:darkblue;
-    text-decoration: none;
+.showcase a:hover {
+    background-color: lightblue; /* Hover effect */
+}
+
+.active {
+    background-color: #04AA6D;
+    color: white;
 }
