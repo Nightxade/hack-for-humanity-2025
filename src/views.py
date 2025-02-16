@@ -27,11 +27,7 @@ def event_data():
         return jsonify({'error': 'Event not found'}), 404
     
     event_data = {
-        "id": event.id,
-        "latitude": event.latitude,
-        "longitude": event.longitude,
         "city": event.city,
-        "state": event.state,
         "country": event.country,
         "title": event.title,
         "content": event.content,

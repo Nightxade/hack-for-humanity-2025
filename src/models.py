@@ -9,7 +9,6 @@ class Event(db.Model):
     longitude = mapped_column(db.Float)
 
     city = mapped_column(db.String)
-    state = mapped_column(db.String(10))
     country = mapped_column(db.String(50))
     
     title = mapped_column(db.String)
