@@ -1,18 +1,12 @@
 .showcase a {
-    color: darkblue;
+    color: #7575c5;
     text-decoration: none;
     padding: 10px 15px;
-    border: 2px solid darkblue; /* Box border */
     margin-right: 10px;
     border-radius: 5px;
     display: inline-block;
 }
 
 .showcase a:hover {
-    background-color: lightblue; /* Hover effect */
-}
-
-.active {
-    background-color: #04AA6D;
-    color: white;
+    background-color: rgb(220, 232, 236); /* Hover effect */
 }
