@@ -14,5 +14,5 @@ CREATE TABLE event (
 
 -- Insert sample data
 INSERT INTO event (id, latitude, longitude, city, country, title, content, category, date, link) VALUES 
-    (1, 37.7749, -122.4194, 'San Francisco', 'USA', 'Tech Conference', 'A big tech event.', 'Technology', '2025-06-15', 'https://example.com/event1'),
-    (2, 40.7128, -74.0060, 'New York', 'USA', 'Music Festival', 'Live music festival.', 'Music', '2025-07-20', 'https://example.com/event2');
+    (1, 37.7749, -122.4194, 'San Francisco', 'USA', 'Tech Conference', 'A big tech event.', 'Natural disaster', '2025-06-15', 'https://example.com/event1'),
+    (2, 40.7128, -74.0060, 'New York', 'USA', 'Music Festival', 'Live music festival.', 'Health and disease', '2025-07-20', 'https://example.com/event2');
