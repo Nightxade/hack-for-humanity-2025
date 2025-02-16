@@ -6,6 +6,7 @@ const headers = {
 };
 
 document.addEventListener("DOMContentLoaded", async function () {
+
     // Initialize Leaflet map
     var map = L.map('map').setView([51.505, -0.09], 13); // London
 
@@ -21,6 +22,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             headers: headers,
         });
         const data = await response.json();
+        markers = data;
 
         // Places markers on the map
         markers = data.map(event => ({
@@ -29,7 +31,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             city: event.city
         }));
     } catch (error) {
-        console.log('wtf');
+        console.log('Error fetching map data');
     }
 
     // Loop through markers array and add them to the map

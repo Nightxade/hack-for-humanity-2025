@@ -1,8 +1,8 @@
 class Config(object):
     DEBUG = False
     TESTING = False
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///app.db'
-    SQLALCHEMY_TRACK_MODIFICATIONS = True
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///../data/events.db'
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 class ConfigProduction(Config):
     pass
