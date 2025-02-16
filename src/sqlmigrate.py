@@ -3,7 +3,7 @@ from sqlalchemy.orm import sessionmaker
 from models import Event
 from src import db
 
-database_url = 'sqlite:///app.db'
+database_url = 'sqlite:///events.db'
 engine = create_engine(database_url)
 Session = sessionmaker(bind=engine)
 session = Session()
