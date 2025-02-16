@@ -1,6 +1,6 @@
 from openai import OpenAI
 
-def article_summary(apikey, url):
+def article_summary(apikey, content):
     client = OpenAI(api_key=apikey)
     
     
@@ -8,29 +8,8 @@ def article_summary(apikey, url):
         model="gpt-4o-mini",
         store=True,
         messages=[
-            {"role": "user", "content": f"Format all following data in JSON.\n\nKey: date, Value: the date of publication in YYYY-MM-DD\nKey: city, Value: the city of event\nKey: country, Value: country of city\nKey: latitude, Value: latitude of city (5 decimals)\nKey: longitude, Value:longitude of city (5 decimals)\nKey: title, Value: article title in quotes\nKey: content, Value: 3-4 sentence summary focus on context and impact \n{url}"}
+            {"role": "user", "content": f"Format all following data in JSON. Do NOT output anything else besides the JSON. This includes the markdown formatting, please output raw JSON.\n\nKey: date, Value: the date the article was published in the format YYYY-MM-DD\nKey: city, Value: the city of event\nKey: country, Value: country of city\nKey: latitude, Value: latitude of city (5 decimals)\nKey: longitude, Value:longitude of city (5 decimals)\nKey: title, Value: article title in quotes\nKey: content, Value: 3-4 sentence summary focus on context and impact\nKey: category, Value: one of the following strings, selected based on which category best describes the article: ['Natural disaster', 'Human rights', 'Health and disease', 'Conflict of war', 'Environmental'] \nHere is the article in raw HTML: {content}"}
         ]
     )
     
-    return completion.choices[0].message
-
-# def test_openai(api_key):
-#     client = OpenAI(api_key=api_key)
-#     try:
-#         completion = client.chat.completions.create(
-#             model="gpt-4o-mini",
-#             store=True,
-#             messages=[
-#                 {"role": "user", "content": "You are an assistant summarizing this news article"}
-#             ]
-#         )
-#         print("API key is valid!")
-#         print(completion.choices[0].message)
-#         return True
-#     except:
-#         print("API key is invalid!")
-#         return False
-
-# if __name__ == "__main__":
-#     api_key = "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"
-#     test_openai(api_key)
+    return completion.choices[0].message.content

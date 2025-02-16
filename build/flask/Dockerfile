@@ -9,6 +9,7 @@ COPY src/${src_files} ./src/
 COPY ./run.py ./requirements.txt ./
 RUN mkdir -p data
 COPY ./data ./data/
+COPY ./private ./private/
 
 RUN adduser -D user && \
     chown -R user:user /app

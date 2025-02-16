@@ -2,23 +2,22 @@ import requests
 from bs4 import BeautifulSoup
 
 PAGE_LIMIT = 1
+PREFIX = "https://www.bbc.com"
 
 def scrape_websites():
-    topics = ["humanitarian", "human%20rights", "health", "disease", "conflict", "war", "environmental"]
-    area = ["global", "united%20states", "bay%20area"]
-    all_links = {}
+    all_links = []
+    pages = ["https://www.bbc.com/news/topics/c6lpr12gep3t", "https://www.bbc.com/news/topics/cwlw3xz0115t","https://www.bbc.com/news/topics/cyqpkren475t"]
 
-    for i in topics:
-        for t in area:
-            url = f'https://news.google.com/search?q={i}%20{t}%20news&hl=en-US&gl=US&ceid=US%3Aen'
-            r = requests.get(url)
-            soup = BeautifulSoup(r.content, 'html.parser')
-            temp = 1
-            for item in soup.find_all('a', class_="WwrzSb"):
-                all_links['news.google.com' + item['href'][1:]] = i
-                if temp == PAGE_LIMIT:
-                    break
-                else:
-                    temp += 1
+    for url in pages:
+        r = requests.get(url)
+        soup = BeautifulSoup(r.text, 'html.parser')
+        poss_art = [a['href'] for a in soup.find_all("a", href=True)]
+        
+        articles = [PREFIX + i for i in list(filter(lambda a: '/news/articles' in a, poss_art))]
+        all_links.extend(articles)
 
-    return all_links
+    contents = {}
+    for link in all_links:
+        contents[link] = requests.get(link).text
+    
+    return contents

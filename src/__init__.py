@@ -27,8 +27,9 @@ with app.app_context():
 from apscheduler.schedulers.background import BackgroundScheduler
 from src.database import update_database
 
+update_database()
 scheduler = BackgroundScheduler()
-job = scheduler.add_job(update_database, 'interval', seconds=5)
+job = scheduler.add_job(update_database, 'interval', hours=6)
 scheduler.start()
 
 #---VIEWS---#
