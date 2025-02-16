@@ -16,21 +16,27 @@ const initialZoom = 5;
 const categoryIcons = {
     'Natural disaster': L.icon({
         iconUrl: '/static/images/disaster_icon.png',
+        iconSize: iconSizes[zoomToSize(initialZoom)],
     }),
     'Human rights': L.icon({
         iconUrl: '/static/images/equal_icon.png',
+        iconSize: iconSizes[zoomToSize(initialZoom)],
     }),
     'Health and disease': L.icon({
         iconUrl: '/static/images/health_icon.png',
+        iconSize: iconSizes[zoomToSize(initialZoom)],
     }),
     'Conflict of war': L.icon({
         iconUrl: '/static/images/war_icon.png',
+        iconSize: iconSizes[zoomToSize(initialZoom)],
     }),
     'Environmental': L.icon({
         iconUrl: '/static/images/tree_icon.png',
+        iconSize: iconSizes[zoomToSize(initialZoom)],
     }),
     'default': L.icon({
         iconUrl: '/static/images/default_icon.png',
+        iconSize: iconSizes[zoomToSize(initialZoom)],
     })
 };
 
