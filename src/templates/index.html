@@ -7,12 +7,14 @@
         crossorigin="" />
     <link rel="stylesheet" href="../static/css/style.css">
     <link rel="stylesheet" href="../static/css/popup.css">
+    <link rel ="stylesheet" href="../static/css/sidebar.css">
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" 
             integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" 
             crossorigin=""></script>
     <script src="../static/js/popup.js"></script>
     <script src="../static/js/map.js"></script>
+    <script src="../static/js/sidebar.js"></script>
 </head>
 <body>
     <section class="showcase">
@@ -30,15 +32,7 @@
     </section>
     
     <div class="sidebar">
-        <ul>
-            <div class="search-container">
-                <form action="/action_page.php">
-                    <input type="text" placeholder="Search.." name="search">
-                    <button type="submit"><i class="fa fa-search"></i></button>
-                </form>
-            </div>
-            <li>test</li>
-        </ul>
+        <div class="category-list"></div>
     </div>
 
 </body>

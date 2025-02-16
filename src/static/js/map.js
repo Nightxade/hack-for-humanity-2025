@@ -123,3 +123,20 @@ document.addEventListener("DOMContentLoaded", async function () {
         });
     });
 });
+
+window.addEventListener('filterMarkers', function(e) {
+    const selectedCategory = e.detail.category;
+    
+    markers.forEach(markerInfo => {
+        const marker = markerInfo.marker;
+        if (selectedCategory === 'all' || markerInfo.category === selectedCategory) {
+            if (!map.hasLayer(marker)) {
+                marker.addTo(map);
+            }
+        } else {
+            if (map.hasLayer(marker)) {
+                map.removeLayer(marker);
+            }
+        }
+    });
+});
