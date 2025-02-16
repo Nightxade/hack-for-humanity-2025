@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const sidebar = document.querySelector('.sidebar');
     const categoryList = document.querySelector('.category-list');
     
-    // Define categories
+    // Define categories with exact matches to map.js
     const categories = [
         { id: 'all', name: 'All Events', icon: '/static/images/menu.png' },
         { id: 'Natural disaster', name: 'Natural Disaster', icon: '/static/images/disaster_icon.png' },
@@ -26,8 +26,8 @@ document.addEventListener('DOMContentLoaded', function() {
         <div class="category-item" data-category="${category.id}">
             <input type="checkbox" 
                    class="category-checkbox" 
-                   id="checkbox-${category.id}"
-                   ${category.id === 'all' ? 'checked' : 'checked'}>
+                   id="checkbox-${category.id.replace(/\s+/g, '-')}"
+                   ${category.id === 'all' ? 'checked' : ''}>
             <img src="${category.icon}" class="category-icon" alt="${category.name}">
             <span class="category-name">${category.name}</span>
         </div>
@@ -40,12 +40,32 @@ document.addEventListener('DOMContentLoaded', function() {
         sidebar.classList.toggle('active');
     });
 
-    // Initialize selected categories
+    // Initialize selected categories array (exclude 'all')
     let selectedCategories = categories
         .filter(cat => cat.id !== 'all')
         .map(cat => cat.id);
 
-    // Function to update markers
+    // Set initial checkbox states
+    document.querySelectorAll('.category-checkbox').forEach(checkbox => {
+        const categoryId = checkbox.closest('.category-item').dataset.category;
+        if (categoryId !== 'all') {
+            checkbox.checked = true;
+        }
+    });
+
+    // Function to update All Events checkbox
+    function updateAllCheckbox() {
+        const allCheckbox = document.querySelector('#checkbox-all');
+        const categoryCheckboxes = Array.from(document.querySelectorAll('.category-checkbox'))
+            .filter(cb => cb.closest('.category-item').dataset.category !== 'all');
+        
+        const allChecked = categoryCheckboxes.every(cb => cb.checked);
+        if (allCheckbox) {
+            allCheckbox.checked = allChecked;
+        }
+    }
+
+    // Function to dispatch marker update event
     function updateMarkers() {
         window.dispatchEvent(new CustomEvent('filterMarkers', {
             detail: { categories: selectedCategories }
@@ -58,48 +78,31 @@ document.addEventListener('DOMContentLoaded', function() {
             const categoryItem = e.target.closest('.category-item');
             const category = categoryItem.dataset.category;
             const isChecked = e.target.checked;
-            
+
             if (category === 'all') {
-                // 处理 All Events 复选框
+                // Handle "All Events" checkbox
                 document.querySelectorAll('.category-checkbox').forEach(cb => {
-                    if (cb.id !== 'checkbox-all') {
+                    const catId = cb.closest('.category-item').dataset.category;
+                    if (catId !== 'all') {
                         cb.checked = isChecked;
+                        if (isChecked && !selectedCategories.includes(catId)) {
+                            selectedCategories.push(catId);
+                        } else if (!isChecked) {
+                            selectedCategories = selectedCategories.filter(c => c !== catId);
+                        }
                     }
                 });
-                
-                if (isChecked) {
-                    // 选中所有类别
-                    selectedCategories = categories
-                        .filter(cat => cat.id !== 'all')
-                        .map(cat => cat.id);
-                } else {
-                    // 清空所有选中的类别
-                    selectedCategories = [];
-                }
             } else {
-                // 处理单个类别复选框
-                if (isChecked) {
-                    // 添加类别到选中列表
-                    if (!selectedCategories.includes(category)) {
-                        selectedCategories.push(category);
-                    }
-                } else {
-                    // 从选中列表中移除类别
+                // Handle individual category checkboxes
+                if (isChecked && !selectedCategories.includes(category)) {
+                    selectedCategories.push(category);
+                } else if (!isChecked) {
                     selectedCategories = selectedCategories.filter(cat => cat !== category);
                 }
-
-                // 更新 All Events 复选框状态
-                const allCategoriesSelected = categories
-                    .filter(cat => cat.id !== 'all')
-                    .every(cat => {
-                        const cb = document.querySelector(`#checkbox-${cat.id}`);
-                        return cb.checked;
-                    });
-                
-                document.querySelector('#checkbox-all').checked = allCategoriesSelected;
+                updateAllCheckbox();
             }
 
-            // 更新地图标记
+            // Update marker visibility based on selected categories
             updateMarkers();
         });
     });
@@ -111,6 +114,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // 初始更新标记
+    // Initial marker update
     updateMarkers();
 });
