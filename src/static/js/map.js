@@ -15,22 +15,22 @@ document.addEventListener("DOMContentLoaded", async function () {
     }).addTo(map);
 
     var markers = [];
-    try {
-        const response = await fetch(`http://${hostname}:${flask_port}/map-data/`,{
-            method: 'GET',
-            headers: headers,
-        });
-        const data = await response.json();
+    // try {
+    //     const response = await fetch(`http://${hostname}:${flask_port}/map-data/`,{
+    //         method: 'GET',
+    //         headers: headers,
+    //     });
+    //     const data = await response.json();
 
-        // Places markers on the map
-        markers = data.map(event => ({
-            id: event.id,
-            position: { lat: event.position[0], lng: event.position[1] },
-            city: event.city
-        }));
-    } catch (error) {
-        console.log('wtf');
-    }
+    //     // Places markers on the map
+    //     markers = data.map(event => ({
+    //         id: event.id,
+    //         position: { lat: event.position[0], lng: event.position[1] },
+    //         city: event.city
+    //     }));
+    // } catch (error) {
+    //     console.log('wtf');
+    // }
 
     // Loop through markers array and add them to the map
     markers.forEach(markerInfo => {

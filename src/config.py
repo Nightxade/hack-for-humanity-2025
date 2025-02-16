@@ -1,7 +1,7 @@
 class Config(object):
     DEBUG = False
     TESTING = False
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///events.db'
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///../data/events.db'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 class ConfigProduction(Config):
