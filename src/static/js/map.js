@@ -35,7 +35,8 @@ document.addEventListener("DOMContentLoaded", async function () {
         markers = data.map(event => ({
             id: event.id,
             position: { lat: event.position[0], lng: event.position[1] },
-            city: event.city
+            city: event.city,
+            category: event.category,
         }));
     } catch (error) {
         console.log('Error fetching map data');
