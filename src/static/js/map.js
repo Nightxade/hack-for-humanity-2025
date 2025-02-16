@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 });
                 const data = await response.json();
                 
-                // 使用新的弹窗组件显示数据
+                // using the popup class
                 popup.show(data, {
                     containerPoint: e.popup.getElement().getBoundingClientRect()
                 });
