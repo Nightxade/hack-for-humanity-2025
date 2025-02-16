@@ -1,9 +1,4 @@
 flask
-django
-fastapi
-numpy
-pandas
 Flask-SQLAlchemy
 flask_cors
-requests
-BeautifulSoup4
+openai
