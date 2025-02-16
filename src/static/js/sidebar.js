@@ -40,60 +40,61 @@ document.addEventListener('DOMContentLoaded', function() {
       sidebar.classList.toggle('active');
   });
 
-  // Initialize selected categories array with all categories
-  let selectedCategories = categories.map(cat => cat.id);
+  // Initialize selected categories array with all categories except 'all'
+  let selectedCategories = categories
+      .filter(cat => cat.id !== 'all')
+      .map(cat => cat.id);
 
   // Handle checkbox changes
   document.querySelectorAll('.category-checkbox').forEach(checkbox => {
       checkbox.addEventListener('change', (e) => {
           const categoryItem = e.target.closest('.category-item');
           const category = categoryItem.dataset.category;
+          const allCheckbox = document.querySelector('#checkbox-all');
           
           if (category === 'all') {
-              // If "All Events" is checked/unchecked
-              if (e.target.checked) {
-                  // Check all checkboxes
-                  document.querySelectorAll('.category-checkbox').forEach(cb => {
-                      cb.checked = true;
-                  });
-                  selectedCategories = categories.map(cat => cat.id);
+              const isChecked = e.target.checked;
+              // Update all other checkboxes
+              document.querySelectorAll('.category-checkbox').forEach(cb => {
+                  if (cb.id !== 'checkbox-all') {
+                      cb.checked = isChecked;
+                  }
+              });
+              
+              // Update selected categories
+              if (isChecked) {
+                  selectedCategories = categories
+                      .filter(cat => cat.id !== 'all')
+                      .map(cat => cat.id);
               } else {
-                  // Uncheck all checkboxes
-                  document.querySelectorAll('.category-checkbox').forEach(cb => {
-                      cb.checked = false;
-                  });
                   selectedCategories = [];
               }
           } else {
               if (e.target.checked) {
                   // Add category to selected
-                  if (!selectedCategories.includes(category)) {
-                      selectedCategories.push(category);
-                  }
+                  selectedCategories.push(category);
+                  
+                  // Check if all regular categories are now selected
+                  const allRegularSelected = categories
+                      .filter(cat => cat.id !== 'all')
+                      .every(cat => {
+                          const cb = document.querySelector(`#checkbox-${cat.id}`);
+                          return cb.checked;
+                      });
+                  
+                  // Update "All Events" checkbox accordingly
+                  allCheckbox.checked = allRegularSelected;
               } else {
                   // Remove category from selected
                   selectedCategories = selectedCategories.filter(cat => cat !== category);
-              }
-
-              // Update "All Events" checkbox state
-              const allCheckbox = document.querySelector('#checkbox-all');
-              const allCategoriesSelected = Array.from(document.querySelectorAll('.category-checkbox'))
-                  .filter(cb => cb.closest('.category-item').dataset.category !== 'all')
-                  .every(cb => cb.checked);
-
-              allCheckbox.checked = allCategoriesSelected;
-              
-              // Update selectedCategories array
-              if (allCategoriesSelected) {
-                  selectedCategories = categories.map(cat => cat.id);
-              } else {
-                  selectedCategories = selectedCategories.filter(cat => cat !== 'all');
+                  // When any individual category is unchecked, uncheck "All Events"
+                  allCheckbox.checked = false;
               }
           }
 
-          // Trigger filter event with all selected categories
+          // Trigger filter event
           window.dispatchEvent(new CustomEvent('filterMarkers', {
-              detail: { categories: selectedCategories.length > 0 ? selectedCategories : ['all'] }
+              detail: { categories: selectedCategories }
           }));
       });
   });
