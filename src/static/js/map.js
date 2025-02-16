@@ -1,9 +1,16 @@
+import MapPopup from './popup.js';
 const hostname = '127.0.0.1';
 const flask_port = 5000;
 const headers = {
     'Content-Type': 'application/json',
     'Accept': 'application/json'
 };
+const popup = new MapPopup({
+    width: '300px',
+    backgroundColor: '#ffffff',
+    borderColor: '#cccccc'
+});
+
 
 document.addEventListener("DOMContentLoaded", async function () {
     const default_location = [37.3541, -121.9552]
@@ -49,7 +56,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         );
 
         // Fetch event data when popup opens
-        marker.on('popupopen', async function() {
+        marker.on('popupopen', async function(e) {
             try {
                 const response = await fetch(`http://${hostname}:${flask_port}/event-data/`, {
                     method: 'POST',
@@ -57,19 +64,14 @@ document.addEventListener("DOMContentLoaded", async function () {
                     body: JSON.stringify({ id: markerInfo.id })
                 });
                 const data = await response.json();
-        
-                // 使用自定义弹窗显示数据
-                window.showEventPopup(data);
                 
-                // 关闭 Leaflet 的原生 popup
-                marker.closePopup();
-            } catch (error) {
-                // 错误处理也使用自定义弹窗
-                window.showEventPopup({
-                    error: true,
-                    message: `Error loading data: ${error.message}`
+                // 使用新的弹窗组件显示数据
+                popup.show(data, {
+                    containerPoint: e.popup.getElement().getBoundingClientRect()
                 });
-                marker.closePopup();
+                
+            } catch (error) {
+                popup.showError(error);
             }
         });
     });
