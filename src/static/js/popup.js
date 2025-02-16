@@ -1,8 +1,6 @@
 const MapPopup = (function() {
     class MapPopup {
         constructor(options = {}) {
-            this.width = options.width || '300px';
-            this.height = options.height || 'auto';
             this.backgroundColor = options.backgroundColor || '#ffffff';
             this.borderColor = options.borderColor || '#cccccc';
             this.container = null;
@@ -61,16 +59,23 @@ const MapPopup = (function() {
         formatEventData(data) {
             if (!data) return '<p>No data available</p>';
             
-            let html = '<div class="event-data">';
-            Object.entries(data).forEach(([key, value]) => {
-                html += `
-                    <div class="event-item">
-                        <strong>${key}:</strong> 
-                        <span>${typeof value === 'object' ? JSON.stringify(value) : value}</span>
+            const location = `${data.city}, ${data.country}`;
+            
+            let html = `
+                <div class="event-data">
+                    <h1 class="event-title">${data.title}</h1>
+                    <div class="event-subtitle">
+                        <span class="event-location">${location}</span>
+                        <span class="event-date">${data.date}</span>
                     </div>
-                `;
-            });
-            html += '</div>';
+                    <div class="event-content">
+                        <p>${data.content}</p>
+                    </div>
+                    <div class="event-link">
+                        <a href="${data.link}" target="_blank">Event Details</a>
+                    </div>
+                </div>
+            `;
             return html;
         }
 
