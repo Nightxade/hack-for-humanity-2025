@@ -1,4 +1,4 @@
-.PHONY: clean
+.PHONY: clean docker restart
 
 all: docker
 
@@ -7,3 +7,6 @@ clean:
 
 docker:
 	docker compose build && docker compose up -d
+
+restart:
+	docker compose restart

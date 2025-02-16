@@ -4,7 +4,6 @@ RUN mkdir -p /app
 WORKDIR /app
 
 ARG root_files="src data package.json package-lock.json"
-ARG port=3000
 
 COPY ./src ./src/
 COPY package*.json ./
@@ -14,6 +13,5 @@ RUN useradd -m -r user && \
 USER user
 
 RUN npm install
-EXPOSE ${port}
 
 CMD ["node", "/app/src/server.js"]

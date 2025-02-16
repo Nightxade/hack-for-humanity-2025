@@ -15,7 +15,7 @@ def scrape_websites():
             temp = 0
             for item in soup.find_all('a', class_="WwrzSb"):
                 all_links['news.google.com' + item['href'][1:]] = i
-                if temp == 5:
+                if temp == 2:
                     break
                 else:
                     temp += 1
