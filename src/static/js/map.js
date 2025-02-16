@@ -60,13 +60,19 @@ document.addEventListener("DOMContentLoaded", async function () {
                 const response = await fetch(`http://${hostname}:${flask_port}/event-data/`, {
                     method: 'POST',
                     headers: headers,
-                    body: JSON.stringify({ id: markerInfo.id })
+                    body: JSON.stringify({ id: markerInfo.id }) 
                 });
                 const data = await response.json();
                 
-                // using the popup class
+                // getting popup at marker
+                const popupElement = e.popup.getElement();
+                const rect = popupElement.getBoundingClientRect();
+                
+                marker.closePopup();
+                // show the data
                 popup.show(data, {
-                    containerPoint: e.popup.getElement().getBoundingClientRect()
+                    x: rect.left,
+                    y: rect.top
                 });
                 
             } catch (error) {
