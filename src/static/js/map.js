@@ -1,5 +1,9 @@
 const hostname = '127.0.0.1';
 const flask_port = 5000;
+/*const headers = {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json'
+};*/
 
 document.addEventListener("DOMContentLoaded", function () {
     // Initialize Leaflet map
@@ -40,7 +44,10 @@ document.addEventListener("DOMContentLoaded", function () {
         // Fetch event data when popup opens
         marker.on('popupopen', async function() {
             try {
-                const response = await fetch(`http://${hostname}:${flask_port}/event-data/`);
+                const response = await fetch(`http://${hostname}:${flask_port}/event-data/`,/*{
+                    method: 'get',
+                    headers: headers,
+                }*/);
                 const data = await response.json();
 
                 // Update the popup content with received data
