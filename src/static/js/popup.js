@@ -121,5 +121,3 @@ class MapPopup {
         this.container.style.display = 'block';
     }
 }
-
-export default MapPopup;

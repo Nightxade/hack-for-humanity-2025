@@ -1,4 +1,3 @@
-import MapPopup from './popup.js';
 const hostname = '127.0.0.1';
 const flask_port = 5000;
 const headers = {
@@ -13,9 +12,10 @@ const popup = new MapPopup({
 
 
 document.addEventListener("DOMContentLoaded", async function () {
+    const default_location = [37.3541, -121.9552]
 
     // Initialize Leaflet map
-    var map = L.map('map').setView([51.505, -0.09], 13); // London
+    var map = L.map('map').setView(default_location, 13); // Santa Clara
 
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 7,
@@ -63,6 +63,8 @@ document.addEventListener("DOMContentLoaded", async function () {
                     body: JSON.stringify({ id: markerInfo.id })
                 });
                 const data = await response.json();
+
+                console.log(data)
                 
                 // using the popup class
                 popup.show(data, {
