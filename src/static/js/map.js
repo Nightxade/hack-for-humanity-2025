@@ -10,6 +10,7 @@ const popup = new MapPopup({
     borderColor: '#cccccc'
 });
 
+
 const iconSizes = [[60, 60], [45, 45], [35, 35], [25, 25], [20, 20], [15, 15]];
 const initialZoom = 5;
 
