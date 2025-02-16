@@ -1,4 +1,5 @@
 .showcase {
-    background-color:antiquewhite;
     padding: 20px;
+    font-family: "Lucida Console", "Courier New", monospace;
+    text-decoration: none;
 }
