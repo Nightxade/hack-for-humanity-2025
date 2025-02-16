@@ -8,7 +8,7 @@ def news_summary(api_key, url):
         model="gpt-4o-mini",
         store=True,
         messages=[
-            {f"Please summarize this article: {url}"}
+            {f"3-4 sentence summary focus on context and impact: {url}"}
         ]
     )
     
