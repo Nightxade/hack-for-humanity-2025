@@ -2,3 +2,5 @@ flask
 Flask-SQLAlchemy
 flask_cors
 openai
+beautifulsoup4
+requests
