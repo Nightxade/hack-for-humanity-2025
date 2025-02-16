@@ -6,9 +6,9 @@ CORS(app)
 
 #---CONFIG---#
 import src.config as cfg
-# app.config.from_object(cfg.ConfigProduction) # production
+app.config.from_object(cfg.ConfigProduction) # production
 # app.config.from_object(cfg.ConfigTest) # test
-app.config.from_object(cfg.ConfigDev) # dev
+# app.config.from_object(cfg.ConfigDev) # dev
 
 #---DATABASE---#
 from flask_sqlalchemy import SQLAlchemy

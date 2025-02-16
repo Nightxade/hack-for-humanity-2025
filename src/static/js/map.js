@@ -10,46 +10,27 @@ const popup = new MapPopup({
     borderColor: '#cccccc'
 });
 
-const iconSize = [45, 45]
-const iconAnchor = [15, 30]
-const popupAnchor = [0, -30]
+const iconSizes = [[60, 60], [45, 45], [35, 35], [25, 25], [20, 20], [15, 15]];
+const initialZoom = 5;
 
 const categoryIcons = {
     'Natural disaster': L.icon({
         iconUrl: '/static/images/disaster_icon.png',
-        iconSize: iconSize,
-        iconAnchor: iconAnchor,
-        popupAnchor: popupAnchor
     }),
     'Human rights': L.icon({
         iconUrl: '/static/images/equal_icon.png',
-        iconSize: iconSize,
-        iconAnchor: iconAnchor,
-        popupAnchor: popupAnchor
     }),
     'Health and disease': L.icon({
         iconUrl: '/static/images/health_icon.png',
-        iconSize: iconSize,
-        iconAnchor: iconAnchor,
-        popupAnchor: popupAnchor
     }),
     'Conflict of war': L.icon({
         iconUrl: '/static/images/war_icon.png',
-        iconSize: iconSize,
-        iconAnchor: iconAnchor,
-        popupAnchor: popupAnchor
     }),
     'Environmental': L.icon({
         iconUrl: '/static/images/tree_icon.png',
-        iconSize: iconSize,
-        iconAnchor: iconAnchor,
-        popupAnchor: popupAnchor
     }),
     'default': L.icon({
         iconUrl: '/static/images/default_icon.png',
-        iconSize: iconSize,
-        iconAnchor: iconAnchor,
-        popupAnchor: popupAnchor
     })
 };
 
@@ -86,8 +67,18 @@ document.addEventListener("DOMContentLoaded", async function () {
             city: event.city,
             category: event.category,
         }));
-        
-        createMarkers(markers);
+
+
+        markers = createMarkers(markers);
+
+        // dynamic resizing of icons on zoom
+        map.on('zoomend', function(e) {
+            markers.forEach(marker => {
+                let icon = marker.options.icon;
+                icon.options.iconSize = iconSizes[zoomToSize(map.getZoom())];
+                marker.setIcon(icon);
+            });
+        });
     } catch (error) {
         console.log('Error fetching map data:', error);
     }
@@ -97,6 +88,7 @@ function createMarkers(markers) {
     // Clear existing markers
     markersLayer.clearLayers();
 
+    let markerList = [];
     markers.forEach(markerInfo => {
         const icon = categoryIcons[markerInfo.category] || categoryIcons.default;
         const marker = L.marker([markerInfo.position.lat, markerInfo.position.lng], { 
@@ -140,7 +132,9 @@ function createMarkers(markers) {
         });
 
         markersLayer.addLayer(marker);
+        markerList.push(marker);
     });
+    return markerList;
 }
 
 // Filter markers based on selected categories
@@ -155,3 +149,7 @@ window.addEventListener('filterMarkers', function(e) {
         }
     });
 });
+
+function zoomToSize(zoom) {
+    return -zoom + iconSizes.length;
+}
