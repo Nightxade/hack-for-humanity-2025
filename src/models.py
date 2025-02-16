@@ -1,5 +1,5 @@
 from sqlalchemy.orm import mapped_column
-from database import db
+from src import db
 
 class Event(db.Model):
     __tablename__ = "event"
