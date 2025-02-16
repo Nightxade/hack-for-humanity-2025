@@ -1,1 +1,0 @@
-[Hack for Humanity Doc](https://docs.google.com/document/d/1bUfxq0LMaaqNhI0ZRDK2fcUiYIIqRK08IGxGFstq3Co/edit?tab=t.0)
