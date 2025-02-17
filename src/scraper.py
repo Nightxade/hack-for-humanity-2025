@@ -13,7 +13,7 @@ def scrape_websites():
         soup = BeautifulSoup(r.text, 'html.parser')
         poss_art = [a['href'] for a in soup.find_all("a", href=True)]
         
-        articles = ['https://' + urlparse(url).netloc + i for i in list(filter(lambda a: '/news/articles' in a, poss_art))][:2]
+        articles = ['https://' + urlparse(url).netloc + i for i in list(filter(lambda a: '/news/articles' in a, poss_art))][:4]
         all_links.extend(articles)
 
     contents = {}

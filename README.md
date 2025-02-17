@@ -13,12 +13,12 @@ chmod +x ./init/init.sh
 
 ### Build Deployment
 ```bash
-sudo make
+make
 ```
 
 ### Terminate Deployment
 ```bash
-sudo make clean
+make clean
 ```
 
 ## Technical Features

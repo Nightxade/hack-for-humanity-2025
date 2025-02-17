@@ -15,8 +15,15 @@ def get_daily_update():
     links = scrape_websites()
     links = {k: {"content": v} for k,v in links.items()}
 
+    failures = []
     for i in links.keys():
-        links[i].update(json.loads(article_summary(openai_key, links[i]['content'])))
+        try:
+            links[i].update(json.loads(article_summary(openai_key, links[i]['content'])))
+        except:
+            failures.append(i)
+    
+    for i in failures:
+        links.pop(i)
 
     return links
 

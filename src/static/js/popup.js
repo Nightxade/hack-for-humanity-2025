@@ -104,7 +104,7 @@ const MapPopup = (function() {
                         <p>${data.content}</p>
                     </div>
                     <div class="event-link">
-                        <a href="${data.link}" target="_blank">Event Details</a>
+                        <a href="${data.link}" target="_blank">Article Link</a>
                     </div>
                 </div>
             `;
